@@ -38,8 +38,9 @@ itself.
 ## Stack
 
 Plain HTML, CSS, and vanilla JavaScript. Fonts from Google Fonts (Big Shoulders Display +
-Barlow). No framework, no build. The next step is porting it to a `/design` route on the
-Next.js site.
+Barlow). No framework, no build. It ships as its own static site at
+[design.aribajahan.com](https://design.aribajahan.com), kept separate from the Next.js app
+so it can iterate on its own.
 
 ## Type
 
