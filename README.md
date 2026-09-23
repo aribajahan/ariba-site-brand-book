@@ -5,7 +5,9 @@ type scale, signature motifs, components, and motion rules that make the site re
 system. It's a single, self-contained interactive page, built in the language it documents:
 every color, type size, and component on the page is also holding the page up.
 
-**Live:** open `index.html` in a browser — no build step, no dependencies.
+**Live:** [design.aribajahan.com](https://design.aribajahan.com), or open `index.html` in a browser — no build step, no dependencies.
+
+![Ariba Jahan Brand Book](docs/brand-book.jpg)
 
 ## What's in it
 
