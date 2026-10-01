@@ -7,3 +7,5 @@
 
 # Scratch
 *.log
+.vercel
+.env*
