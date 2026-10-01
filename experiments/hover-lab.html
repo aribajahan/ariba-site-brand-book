@@ -1,0 +1,264 @@
+<title>Hover Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<style>
+  :root {
+    --cream: #FFFBF3; --charcoal: #2D2D2D; --tennis: #8EF942; --cherish: #E73131;
+    --femme-pink: #F5A8D5; --tangerine: #FF6D24; --highlighter: #F3FF00; --paper: #F3ECDD;
+    --tear-l: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='44' preserveAspectRatio='none'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.06' numOctaves='2' seed='2' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='9' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='9' y='-10' width='24' height='66' fill='white' filter='url(%23t)'/%3E%3C/svg%3E");
+    --tear-r: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='44' preserveAspectRatio='none'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.06' numOctaves='2' seed='8' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='9' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='-13' y='-10' width='24' height='66' fill='white' filter='url(%23t)'/%3E%3C/svg%3E");
+    --rough: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='46' preserveAspectRatio='none'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.03' numOctaves='2' seed='4' result='t'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='t' scale='2.5' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='4' y='4' width='212' height='38' rx='2' fill='white' filter='url(%23r)'/%3E%3C/svg%3E");
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--charcoal); font-family: "Barlow", system-ui, sans-serif;
+    font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 56px clamp(20px, 5vw, 72px) 120px; }
+  h1 { font-family: "Big Shoulders Display", "Barlow", sans-serif; font-weight: 900; text-transform: uppercase;
+    letter-spacing: -0.01em; font-size: clamp(40px, 6vw, 68px); line-height: 0.92; margin: 0 0 14px; text-wrap: balance; }
+  .lede { max-width: 66ch; color: color-mix(in srgb, var(--charcoal) 72%, transparent); font-size: 18px; margin: 0; }
+  .lede b { color: var(--charcoal); }
+  .hint { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--cherish); margin-top: 20px; }
+  .hint::before { content: ""; width: 22px; height: 2px; background: var(--cherish); }
+
+  section { margin-top: 84px; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; border-top: 2px solid var(--charcoal);
+    padding-top: 14px; margin-bottom: 8px; }
+  .sec-num { font-family: "Big Shoulders Display", sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.1em; color: var(--cherish); }
+  h2 { font-family: "Big Shoulders Display", sans-serif; font-weight: 800; text-transform: uppercase;
+    font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.005em; margin: 0; line-height: 1; }
+  .rule-line { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    color: color-mix(in srgb, var(--charcoal) 55%, transparent); margin-left: auto; }
+  .sec-note { max-width: 64ch; color: color-mix(in srgb, var(--charcoal) 66%, transparent); font-size: 16px; margin: 12px 0 28px; }
+  .sec-note b { color: var(--charcoal); }
+
+  .opts { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
+  .opt { display: flex; flex-direction: column; gap: 0; }
+  .opt .stage { background: color-mix(in srgb, var(--cream) 55%, var(--paper)); border: 1px dashed color-mix(in srgb, var(--charcoal) 18%, transparent);
+    padding: 46px 30px; display: flex; align-items: center; justify-content: center; min-height: 300px; }
+  .opt .cap { margin-top: 12px; }
+  .opt .cap b { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--charcoal); }
+  .opt .cap span { display: block; font-size: 13.5px; color: color-mix(in srgb, var(--charcoal) 60%, transparent); line-height: 1.4; margin-top: 2px; }
+
+  /* shared tape */
+  .tape { position: relative; display: inline-block; isolation: isolate; padding: 4px 14px; color: var(--charcoal); rotate: -1.5deg; }
+  .tape::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--tape-color, var(--femme-pink));
+    -webkit-mask-image: var(--tear-l), var(--tear-r), linear-gradient(#000, #000); mask-image: var(--tear-l), var(--tear-r), linear-gradient(#000, #000);
+    -webkit-mask-position: left center, right center, center; mask-position: left center, right center, center;
+    -webkit-mask-size: 20px 100%, 20px 100%, calc(100% - 36px) 100%; mask-size: 20px 100%, 20px 100%, calc(100% - 36px) 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+
+  /* ===== OFFER CARD base ===== */
+  .card { position: relative; display: block; width: 100%; background: var(--cream); color: inherit; text-decoration: none;
+    border-top: 3px solid var(--cherish); padding: 30px 26px 26px; }
+  .card .ey { font-size: 10.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cherish); }
+  .card .tt { font-family: "Big Shoulders Display", sans-serif; font-weight: 900; text-transform: uppercase; font-size: 27px; line-height: .95; margin: 14px 0 12px; }
+  .card p { font-size: 14.5px; color: color-mix(in srgb, var(--charcoal) 62%, transparent); margin: 0 0 20px; }
+  .card .cta { position: relative; font-size: 12.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cherish);
+    display: inline-flex; align-items: center; gap: 7px; padding-bottom: 3px; }
+  .card .cta .arw { transition: transform .28s cubic-bezier(.23,1,.32,1); }
+  .card, .card .top-draw { transition: transform .2s cubic-bezier(.23,1,.32,1), box-shadow .2s; }
+  .card:hover .cta .arw { transform: translateX(6px); }
+  /* A — lift + arrow + underline */
+  .oa:hover { transform: translateY(-5px); box-shadow: 0 14px 24px -10px rgba(20,12,12,.4); }
+  .oa .cta::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--cherish);
+    transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.22,1,.32,1); }
+  .oa:hover .cta::after { transform: scaleX(1); }
+  /* B — flat, no lift: top border draws thicker + arrow */
+  .ob { border-top-color: color-mix(in srgb, var(--cherish) 45%, transparent); }
+  .ob::before { content: ""; position: absolute; top: -3px; left: 0; height: 3px; width: 100%; background: var(--cherish);
+    transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.22,1,.32,1); }
+  .ob:hover::before { transform: scaleX(1); }
+  /* C — lift + CTA fills like a button */
+  .oc:hover { transform: translateY(-5px); box-shadow: 0 14px 24px -10px rgba(20,12,12,.4); }
+  .oc .cta { border: 2px solid var(--cherish); padding: 8px 16px; overflow: hidden; z-index: 0; }
+  .oc .cta::before { content: ""; position: absolute; inset: 0; background: var(--cherish); z-index: -1;
+    transform: translateX(-101%); transition: transform .32s cubic-bezier(.22,1,.32,1); }
+  .oc:hover .cta { color: var(--cream); }
+  .oc:hover .cta::before { transform: translateX(0); }
+  .card:focus-visible { outline: 3px solid var(--cherish); outline-offset: 3px; }
+
+  /* ===== QUEST base (rotated print) ===== */
+  .quest { position: relative; width: 260px; background: var(--cream); padding: 14px 14px 20px; box-shadow: 0 16px 32px -14px rgba(20,12,12,.28);
+    transition: transform .38s cubic-bezier(.23,1,.32,1), box-shadow .38s ease; transform: rotate(-2.2deg); }
+  .quest .frame { position: relative; width: 100%; aspect-ratio: 3/2; overflow: hidden; background: #d9d2c4; margin-bottom: 14px; }
+  .quest .ph { position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, #cfc8ba 0 14px, #c6bfb0 14px 28px); transition: transform .5s cubic-bezier(.23,1,.32,1); }
+  .quest .qtag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%) rotate(-3deg); z-index: 2; rotate: 0deg;
+    font-family: "Big Shoulders Display", sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; filter: drop-shadow(0 3px 6px rgba(20,12,12,.22)); }
+  .quest .cl { font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cherish); margin-bottom: 4px; }
+  .quest .h { font-family: "Big Shoulders Display", sans-serif; font-weight: 900; text-transform: uppercase; font-size: 20px; line-height: .98; }
+  /* A straighten */
+  .qa:hover { transform: rotate(0deg); box-shadow: 0 20px 36px -14px rgba(20,12,12,.34); }
+  .qa:hover .ph { transform: scale(1.05); }
+  /* B lean-in (keep angle, grow slightly) */
+  .qb:hover { transform: rotate(-2.2deg) scale(1.045); box-shadow: 0 22px 38px -14px rgba(20,12,12,.34); }
+  .qb:hover .ph { transform: scale(1.05); }
+  /* C whisper (photo only) */
+  .qc:hover { box-shadow: 0 20px 34px -14px rgba(20,12,12,.32); }
+  .qc:hover .ph { transform: scale(1.06); }
+
+  /* ===== CASE base (flips) ===== */
+  .case { position: relative; width: 280px; background: var(--cream); border: 1px solid color-mix(in srgb, var(--charcoal) 9%, transparent);
+    box-shadow: 0 14px 28px -12px rgba(0,0,0,.15); padding: 24px 22px 22px; transition: box-shadow .3s ease, transform .35s cubic-bezier(.23,1,.32,1); }
+  .case .ctag { position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-2deg); z-index: 3; rotate: 0deg;
+    font-family: "Big Shoulders Display", sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 18px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.18)); }
+  .case .frame { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; background: #d9d2c4; margin: 6px 0 14px; }
+  .case .ph { position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, #cfc8ba 0 14px, #c6bfb0 14px 28px); transition: transform .55s cubic-bezier(.23,1,.32,1); }
+  .case .cl { font-size: 10.5px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cherish); margin-bottom: 4px; }
+  .case .h { font-family: "Big Shoulders Display", sans-serif; font-weight: 900; text-transform: uppercase; font-size: 19px; line-height: 1; }
+  .case .flip { position: absolute; bottom: 14px; right: 14px; width: 32px; height: 32px; border-radius: 50%;
+    background: color-mix(in srgb, var(--charcoal) 76%, transparent); color: var(--cream); display: flex; align-items: center; justify-content: center;
+    font-size: 14px; box-shadow: 0 6px 14px -5px rgba(0,0,0,.35); transition: background .25s ease, transform .3s cubic-bezier(.23,1,.32,1); }
+  /* A photo drift + flip wakes */
+  .ca:hover .ph { transform: scale(1.04); }
+  .ca:hover .flip { background: var(--charcoal); transform: scale(1.14) rotate(180deg); }
+  /* B peek — hint the back with a small tilt */
+  .cb { transform-style: preserve-3d; }
+  .cb:hover { transform: perspective(1400px) rotateY(-7deg); box-shadow: -10px 18px 30px -14px rgba(0,0,0,.28); }
+  .cb:hover .flip { background: var(--charcoal); transform: scale(1.1) rotate(180deg); }
+  /* C flip-cue only */
+  .cc:hover .flip { background: var(--charcoal); transform: scale(1.16) rotate(180deg); }
+
+  /* ===== TILE base (external) ===== */
+  .utile { position: relative; display: block; width: 240px; text-decoration: none; overflow: hidden; aspect-ratio: 1/1; background: var(--charcoal); }
+  .utile .uph { position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, #3a3a3a 0 14px, #313131 14px 28px); transition: transform .55s cubic-bezier(.23,1,.32,1); }
+  .utile .ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,12,12,.84), rgba(20,12,12,.08) 60%); transition: opacity .3s ease; }
+  .utile .utag { position: absolute; top: 12px; left: 12px; z-index: 2; rotate: -1deg;
+    font-family: "Big Shoulders Display", sans-serif; font-weight: 800; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--charcoal); padding: 3px 10px; }
+  .utile .uh { position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 2; color: var(--cream);
+    font-family: "Big Shoulders Display", sans-serif; font-weight: 800; text-transform: uppercase; font-size: 18px; line-height: .98; transition: transform .3s cubic-bezier(.23,1,.32,1); }
+  .utile .uarr { position: absolute; top: 10px; right: 12px; z-index: 2; color: var(--cream); font-size: 18px; font-weight: 700;
+    opacity: 0; transform: translate(-4px, 4px); transition: opacity .28s ease, transform .28s cubic-bezier(.23,1,.32,1); }
+  .utile .urule { position: absolute; left: 14px; bottom: 8px; height: 3px; width: 40px; background: var(--tennis); z-index: 2;
+    transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.22,1,.32,1); }
+  /* A zoom + arrow */
+  .ta:hover .uph { transform: scale(1.07); }
+  .ta:hover .uarr { opacity: 1; transform: translate(0,0); }
+  /* B zoom + title rises + tennis rule */
+  .tb:hover .uph { transform: scale(1.07); }
+  .tb:hover .uh { transform: translateY(-8px); }
+  .tb:hover .urule { transform: scaleX(1); }
+  /* C dim + arrow, no zoom */
+  .tc .ov { background: linear-gradient(to top, rgba(20,12,12,.7), rgba(20,12,12,.05) 60%); }
+  .tc:hover .ov { opacity: 1; background: linear-gradient(to top, rgba(20,12,12,.9), rgba(20,12,12,.25) 70%); }
+  .tc:hover .uarr { opacity: 1; transform: translate(0,0); }
+  .utile:focus-visible { outline: 3px solid var(--tennis); outline-offset: -3px; }
+
+  /* ===== MARKER strokes ===== */
+  .mk { position: relative; font-family: "Big Shoulders Display", sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em;
+    font-size: 26px; color: var(--charcoal); text-decoration: none; cursor: pointer; padding-bottom: 2px; }
+  .mk::after { content: ""; position: absolute; left: -3px; right: -6px; z-index: -1; transform: scaleX(0); transform-origin: left center;
+    transition: transform .42s cubic-bezier(.22,1,.32,1); -webkit-mask-image: var(--rough); mask-image: var(--rough);
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+  .mk:hover::after, .mk:focus-visible::after { transform: scaleX(1); }
+  .mk-thin::after { bottom: -3px; height: 7px; background: var(--highlighter); }
+  .mk-full { z-index: 0; } .mk-full::after { top: -4%; bottom: -6%; background: rgba(244,233,63,.85); }
+  .mk-red::after { bottom: -3px; height: 7px; background: var(--cherish); }
+
+  .foot { margin-top: 92px; border-top: 2px solid var(--charcoal); padding-top: 18px; font-size: 15px;
+    color: color-mix(in srgb, var(--charcoal) 62%, transparent); max-width: 70ch; }
+  .foot b { color: var(--charcoal); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Hover Lab</h1>
+    <p class="lede">The rule underneath: motion matches where a thing goes. <b>In-site nav</b> can lift and say "go." <b>Dead cards</b> stay in place and just breathe. <b>External links</b> point outward. A few options within each — pick per element.</p>
+    <span class="hint">Hover every variant</span>
+  </header>
+
+  <!-- 1 · OFFER CARDS -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Offer cards</h2><span class="rule-line">Goes to a page here → "go"</span></div>
+    <p class="sec-note">The two homepage offers link to their Work-With-Me sections. Every option makes the <b>whole card the link</b> (fixing the dead click) — they differ in how loud the "go" is.</p>
+    <div class="opts">
+      <div class="opt">
+        <div class="stage"><a href="#" class="card oa"><span class="ey">Work with me · 01</span><div class="tt"><span class="tape" style="--tape-color: var(--femme-pink)">Ambition Sprint</span></div><p>Move one hard decision from stuck to shipped.</p><span class="cta">Explore <span class="arw">→</span></span></a></div>
+        <div class="cap"><b>A · Lift + underline</b><span>Rises, arrow advances, CTA underlines. Warmest.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><a href="#" class="card ob"><span class="ey">Work with me · 01</span><div class="tt"><span class="tape" style="--tape-color: var(--femme-pink)">Ambition Sprint</span></div><p>Move one hard decision from stuck to shipped.</p><span class="cta">Explore <span class="arw">→</span></span></a></div>
+        <div class="cap"><b>B · Flat, top-rule draws</b><span>No lift. The cherish edge fills L→R. Editorial.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><a href="#" class="card oc"><span class="ey">Work with me · 01</span><div class="tt"><span class="tape" style="--tape-color: var(--femme-pink)">Ambition Sprint</span></div><p>Move one hard decision from stuck to shipped.</p><span class="cta">Explore <span class="arw">→</span></span></a></div>
+        <div class="cap"><b>C · Lift + CTA fills</b><span>Rises, the button wipes to solid cherish. Loudest.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · QUEST CARDS -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Quest cards</h2><span class="rule-line">No destination → in-place</span></div>
+    <p class="sec-note">Scattered prints, no link. So no lift — the motion says "look," not "click."</p>
+    <div class="opts">
+      <div class="opt">
+        <div class="stage"><div class="quest qa"><span class="tape qtag" style="--tape-color: var(--tangerine)">Side Quest · 01</span><div class="frame"><span class="ph"></span></div><div class="cl">Build</div><div class="h">Library Finder</div></div></div>
+        <div class="cap"><b>A · Straighten</b><span>The tilted card rotates upright. Most characterful.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><div class="quest qb"><span class="tape qtag" style="--tape-color: var(--tangerine)">Side Quest · 01</span><div class="frame"><span class="ph"></span></div><div class="cl">Build</div><div class="h">Library Finder</div></div></div>
+        <div class="cap"><b>B · Lean in</b><span>Keeps its angle, grows a touch. Comes toward you.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><div class="quest qc"><span class="tape qtag" style="--tape-color: var(--tangerine)">Side Quest · 01</span><div class="frame"><span class="ph"></span></div><div class="cl">Build</div><div class="h">Library Finder</div></div></div>
+        <div class="cap"><b>C · Whisper</b><span>Only the photo drifts. Barely there.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · CASE STUDY CARDS -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Case study cards</h2><span class="rule-line">No destination, but they flip</span></div>
+    <p class="sec-note">No link — but the ⇄ flips them to Challenge / Approach / Result. Each option teaches the flip a little differently. No lift.</p>
+    <div class="opts">
+      <div class="opt">
+        <div class="stage"><div class="case ca"><span class="tape ctag" style="--tape-color: var(--femme-pink)">Case Study 1</span><div class="frame"><span class="ph"></span></div><div class="cl">Weight Watchers</div><div class="h">Rebuilding the habit loop</div><span class="flip">⇄</span></div></div>
+        <div class="cap"><b>A · Photo drift + flip wakes</b><span>Photo pushes in, the ⇄ grows and spins.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><div class="case cb"><span class="tape ctag" style="--tape-color: var(--femme-pink)">Case Study 1</span><div class="frame"><span class="ph"></span></div><div class="cl">Weight Watchers</div><div class="h">Rebuilding the habit loop</div><span class="flip">⇄</span></div></div>
+        <div class="cap"><b>B · Peek</b><span>Tilts to hint the back is there. Most literal.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><div class="case cc"><span class="tape ctag" style="--tape-color: var(--femme-pink)">Case Study 1</span><div class="frame"><span class="ph"></span></div><div class="cl">Weight Watchers</div><div class="h">Rebuilding the habit loop</div><span class="flip">⇄</span></div></div>
+        <div class="cap"><b>C · Flip-cue only</b><span>Just the ⇄ wakes. Quietest, most honest.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · UNMISSABLES TILES -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Unmissables tiles</h2><span class="rule-line">Opens out → outward cue</span></div>
+    <p class="sec-note">These open essays and podcasts in a <b>new tab</b> — a different promise than in-site nav. So the cue points out, not up.</p>
+    <div class="opts">
+      <div class="opt">
+        <div class="stage"><a href="#" class="utile ta"><span class="uph"></span><span class="ov"></span><span class="tape utag" style="--tape-color: var(--tennis)">Essay</span><span class="uarr">↗</span><span class="uh">Cognitive Endurance</span></a></div>
+        <div class="cap"><b>A · Zoom + ↗</b><span>Photo zooms, outward arrow wakes in the corner.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><a href="#" class="utile tb"><span class="uph"></span><span class="ov"></span><span class="tape utag" style="--tape-color: var(--tennis)">Essay</span><span class="urule"></span><span class="uh">Cognitive Endurance</span></a></div>
+        <div class="cap"><b>B · Title rises + tennis rule</b><span>Title lifts, a tennis underline draws in. No arrow.</span></div>
+      </div>
+      <div class="opt">
+        <div class="stage"><a href="#" class="utile tc"><span class="uph"></span><span class="ov"></span><span class="tape utag" style="--tape-color: var(--tennis)">Essay</span><span class="uarr">↗</span><span class="uh">Cognitive Endurance</span></a></div>
+        <div class="cap"><b>C · Dim + ↗</b><span>Overlay deepens, arrow wakes. No zoom. Calmest.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · MARKER STROKE -->
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Marker stroke</h2><span class="rule-line">For real text links</span></div>
+    <p class="sec-note">For actual links — nav, the Substack/Spotify/Apple row, text links in prose. A yellow tip draws L→R. Separate from the resting highlighter's "owned idea" meaning.</p>
+    <div class="opts">
+      <div class="opt"><div class="stage"><a href="#" class="mk mk-thin">Work with me</a></div><div class="cap"><b>A · Thin underline</b><span>A marker line under the word.</span></div></div>
+      <div class="opt"><div class="stage"><a href="#" class="mk mk-full">Read the essay</a></div><div class="cap"><b>B · Full swipe</b><span>Highlighter behind the text.</span></div></div>
+      <div class="opt"><div class="stage"><a href="#" class="mk mk-red">Book a talk</a></div><div class="cap"><b>C · Cherish</b><span>Same stroke, red — for yellow-shy grounds.</span></div></div>
+    </div>
+  </section>
+
+  <p class="foot"><b>Parked:</b> tape-peel — CSS can't give a masked strip the weight of real tape. <b>Held:</b> testimonials — set the vocabulary here first, then decide if they get a signature.</p>
+</div>
